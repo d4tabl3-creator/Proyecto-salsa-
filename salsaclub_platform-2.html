@@ -1,0 +1,3000 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritmo Latino PVR — Asociación de Baile Latino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:wght@400;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --wine: #020D1A;
+  --deep: #041828;
+  --coral: #0099FF;
+  --coral-light: #38B8FF;
+  --gold: #00DDB8;
+  --gold-dark: #00C4A0;
+  --teal: #39FF9E;
+  --cream: #E8F6FF;
+  --smoke: rgba(255,255,255,0.07);
+  --card-bg: rgba(4,24,40,0.88);
+  --border: rgba(0,221,184,0.18);
+  --radius: 18px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--wine);
+  color: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── ANIMATED BG PATTERN ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0,153,255,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(57,255,158,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 60% 10%, rgba(0,221,184,0.06) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── MUSIC NOTES FLOATING ─── */
+.notes-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.note {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: floatNote linear infinite;
+  color: var(--gold);
+}
+@keyframes floatNote {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.18; }
+  90%  { opacity: 0.1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(2,13,26,0.95);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 68px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-icon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--coral), var(--teal));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 0 20px rgba(0,153,255,0.5);
+}
+.logo-text {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.25rem;
+  background: linear-gradient(135deg, var(--teal), var(--coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.logo-sub { font-size: 0.6rem; letter-spacing: 2px; color: rgba(255,255,255,0.5); font-weight: 700; display: block; }
+
+.nav-links {
+  display: flex;
+  gap: 0.2rem;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 30px;
+  transition: all 0.25s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--gold);
+  background: rgba(0,221,184,0.12);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--teal), #22DD88);
+  color: var(--wine);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,221,184,0.4); }
+.btn-coral {
+  background: linear-gradient(135deg, var(--coral), #0077EE);
+  color: white;
+}
+.btn-coral:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,153,255,0.4); }
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--cream);
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+.btn-teal {
+  background: linear-gradient(135deg, var(--teal), #22DD88);
+  color: var(--wine);
+  font-weight: 800;
+}
+.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(57,255,158,0.4); }
+.btn-lg { padding: 14px 32px; font-size: 1rem; }
+.btn-sm { padding: 6px 14px; font-size: 0.78rem; }
+
+/* ─── SECTIONS ─── */
+.section {
+  display: none;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding-top: 68px;
+}
+.section.active { display: block; }
+
+/* ─── HERO ─── */
+#hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px 2rem 4rem;
+  text-align: center;
+  position: relative;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,153,255,0.15);
+  border: 1px solid rgba(0,153,255,0.4);
+  color: var(--coral-light);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 30px;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease both;
+}
+.hero-title {
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  animation: fadeInDown 0.7s 0.1s ease both;
+}
+.hero-title span {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 560px;
+  line-height: 1.7;
+  margin: 0 auto 2.5rem;
+  animation: fadeInDown 0.7s 0.2s ease both;
+}
+.hero-prof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 22px;
+  margin: 0 auto 2.5rem;
+  width: fit-content;
+  animation: fadeInDown 0.7s 0.3s ease both;
+}
+.prof-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--coral), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  border: 2px solid rgba(0,221,184,0.4);
+}
+.prof-info { text-align: left; }
+.prof-name { font-weight: 800; font-size: 1rem; }
+.prof-title { font-size: 0.78rem; color: var(--gold); font-weight: 600; }
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInDown 0.7s 0.4s ease both;
+}
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+  animation: fadeInDown 0.7s 0.5s ease both;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Abril Fatface', serif;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--teal), var(--coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── CLASSES / CALENDARIO ─── */
+.section-header {
+  padding: 3rem 2rem 1.5rem;
+  text-align: center;
+}
+.section-title {
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+.section-title span { color: var(--gold); }
+.section-desc { color: rgba(255,255,255,0.55); font-size: 0.95rem; }
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 2rem 3rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.class-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+}
+.class-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.card-header {
+  padding: 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+.card-level-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.badge-beginner { background: rgba(57,255,158,0.2); border: 1px solid var(--teal); color: var(--teal); }
+.badge-intermediate { background: rgba(0,221,184,0.2); border: 1px solid var(--gold); color: var(--gold); }
+.badge-advanced { background: rgba(0,153,255,0.2); border: 1px solid var(--coral); color: var(--coral); }
+.badge-kids { background: rgba(0,100,220,0.25); border: 1px solid #70C8FF; color: #70C8FF; }
+
+.card-style {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--coral);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+.card-day {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-body { padding: 1rem 1.2rem; }
+.card-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.info-item { font-size: 0.82rem; }
+.info-label { color: rgba(255,255,255,0.45); font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 2px; }
+.info-val { font-weight: 700; }
+
+.spots-bar-wrap { margin-bottom: 1rem; }
+.spots-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 5px;
+}
+.spots-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.spots-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+.fill-green { background: linear-gradient(90deg, var(--teal), #22DD88); }
+.fill-yellow { background: linear-gradient(90deg, var(--gold), #00C4A0); }
+.fill-red { background: linear-gradient(90deg, var(--coral), #0077EE); }
+
+.address-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1rem;
+  padding: 8px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+}
+.address-icon { color: var(--coral); margin-top: 1px; flex-shrink: 0; }
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.price {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+.price-period { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+/* ─── CALENDAR ─── */
+.calendar-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+.week-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.week-day-label {
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.4);
+  padding: 8px 0;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-day {
+  min-height: 90px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 8px;
+  transition: all 0.2s;
+}
+.cal-day:hover { background: rgba(0,221,184,0.05); border-color: var(--border); }
+.cal-day.today { border-color: var(--gold); background: rgba(0,221,184,0.08); }
+.cal-num {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+}
+.cal-day.today .cal-num { color: var(--gold); }
+.cal-event {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cal-event:hover { opacity: 0.8; }
+.ev-salsa { background: rgba(0,153,255,0.3); color: var(--coral); border-left: 2px solid var(--coral); }
+.ev-bachata { background: rgba(0,221,184,0.2); color: var(--gold); border-left: 2px solid var(--gold); }
+.ev-merengue { background: rgba(57,255,158,0.2); color: var(--teal); border-left: 2px solid var(--teal); }
+.ev-kids { background: rgba(0,100,220,0.25); color: #7DD4FF; border-left: 2px solid #70C8FF; }
+
+/* ─── VIDEO CAROUSEL ─── */
+.carousel-section {
+  padding: 0 0 3rem;
+}
+.carousel-row { margin-bottom: 2.5rem; }
+.carousel-row-title {
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0 2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.row-tag {
+  font-size: 0.7rem;
+  background: var(--coral);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 800;
+}
+.carousel-track-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.video-card {
+  flex: 0 0 260px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.video-card:hover { transform: scale(1.03); box-shadow: var(--shadow); }
+.video-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.video-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.play-btn {
+  position: absolute;
+  z-index: 2;
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  transition: all 0.2s;
+}
+.video-card:hover .play-btn {
+  background: var(--coral);
+  border-color: var(--coral);
+  transform: scale(1.1);
+}
+.video-duration {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  z-index: 3;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(0,0,0,0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.video-info { padding: 10px 12px 12px; }
+.video-title { font-weight: 800; font-size: 0.85rem; margin-bottom: 4px; line-height: 1.3; }
+.video-meta { font-size: 0.72rem; color: rgba(255,255,255,0.45); }
+
+/* ─── PAYMENT / REGISTER MODAL ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #041828;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: white;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.15); }
+.modal-title {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+.modal-subtitle { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; }
+
+.form-group { margin-bottom: 1rem; }
+.form-label { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 5px; display: block; letter-spacing: 0.5px; }
+.form-input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: white;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus { border-color: var(--gold); }
+.form-input option { background: #041828; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+.pay-method {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+}
+.pay-method:hover, .pay-method.selected {
+  border-color: var(--gold);
+  background: rgba(0,221,184,0.08);
+  color: var(--gold);
+}
+.pay-icon { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+
+.promo-box {
+  background: rgba(57,255,158,0.1);
+  border: 1px solid rgba(57,255,158,0.3);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+}
+.promo-icon { font-size: 1.4rem; }
+.promo-text strong { color: var(--teal); }
+
+.total-box {
+  background: rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 1.5rem;
+}
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 6px;
+}
+.total-row.main {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--cream);
+  margin-bottom: 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.total-row.main span:last-child { color: var(--gold); }
+
+/* ─── SUCCESS SCREEN ─── */
+.success-screen {
+  display: none;
+  text-align: center;
+  padding: 2rem 0;
+}
+.success-screen.show { display: block; }
+.success-icon { font-size: 4rem; margin-bottom: 1rem; }
+.success-title { font-family: 'Abril Fatface', serif; font-size: 1.8rem; color: var(--teal); margin-bottom: 0.5rem; }
+
+/* ─── COMMUNITY / SOCIAL ─── */
+.community-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem 3rem;
+}
+@media (max-width: 900px) {
+  .community-layout { grid-template-columns: 1fr; }
+}
+
+.feed { }
+.create-post {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.post-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--coral), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+.post-input-wrap { flex: 1; }
+.post-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s;
+}
+.post-input:focus { border-color: var(--coral); }
+.post-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.post-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+.post-card:hover { border-color: rgba(0,221,184,0.25); }
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.post-user-info { flex: 1; }
+.post-user-name { font-weight: 800; font-size: 0.9rem; }
+.post-user-role { font-size: 0.72rem; color: var(--coral); font-weight: 700; }
+.post-time { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+.post-content { font-size: 0.88rem; color: rgba(255,255,255,0.82); line-height: 1.6; margin-bottom: 1rem; }
+.post-media {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+.post-reactions {
+  display: flex;
+  gap: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.reaction-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+.reaction-btn:hover, .reaction-btn.active { color: var(--coral); background: rgba(0,153,255,0.1); }
+
+/* SIDEBAR */
+.sidebar { }
+.sidebar-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.sidebar-title {
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold);
+}
+.sponsor-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sponsor-card:hover { background: rgba(255,255,255,0.07); }
+.sponsor-logo {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.sponsor-info { }
+.sponsor-name { font-weight: 800; font-size: 0.82rem; }
+.sponsor-promo { font-size: 0.72rem; color: var(--teal); font-weight: 700; }
+.sponsor-cat { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
+
+.promo-banner {
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,153,255,0.3), rgba(0,221,184,0.2));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.promo-banner > * { position: relative; }
+.promo-title { font-weight: 800; font-size: 0.9rem; margin-bottom: 4px; }
+.promo-disc { font-family: 'Abril Fatface', serif; font-size: 2rem; color: var(--gold); }
+.promo-valid { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+
+/* ─── ADMIN ─── */
+.admin-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 68px);
+}
+.admin-sidebar {
+  background: rgba(0,0,0,0.35);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 0;
+}
+.admin-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.admin-menu-item:hover, .admin-menu-item.active {
+  color: var(--gold);
+  background: rgba(0,221,184,0.06);
+  border-left-color: var(--gold);
+}
+.admin-menu-section {
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.25);
+  padding: 1.2rem 1.5rem 0.4rem;
+  text-transform: uppercase;
+}
+.admin-content {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Dashboard KPIs */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.kpi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+}
+.kpi-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.kpi-val {
+  font-family: 'Abril Fatface', serif;
+  font-size: 2rem;
+  color: var(--gold);
+}
+.kpi-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+.kpi-delta { font-size: 0.75rem; color: var(--teal); font-weight: 800; }
+
+/* Students table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 12px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.data-table tr:hover td { background: rgba(255,255,255,0.03); }
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.s-active { background: rgba(57,255,158,0.15); color: var(--teal); border: 1px solid rgba(57,255,158,0.3); }
+.s-pending { background: rgba(0,221,184,0.15); color: var(--gold); border: 1px solid rgba(0,221,184,0.3); }
+.s-inactive { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1); }
+
+/* Social Media Publisher */
+.social-networks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.social-net-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.social-net-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.fb-btn::before { background: linear-gradient(135deg, #1877f2, #0a5cbf); }
+.ig-btn::before { background: linear-gradient(135deg, #0088EE, #0066CC, #0044BB, #003399, #002277); }
+.yt-btn::before { background: linear-gradient(135deg, #ff0000, #cc0000); }
+.tw-btn::before { background: linear-gradient(135deg, #1da1f2, #0d8ed9); }
+.wa-btn::before { background: linear-gradient(135deg, #25d366, #128c7e); }
+.tk-btn::before { background: linear-gradient(135deg, #000000, #333); }
+.social-net-btn:hover::before { opacity: 1; }
+.social-net-btn > * { position: relative; z-index: 1; }
+.social-icon { font-size: 2rem; display: block; margin-bottom: 6px; transition: transform 0.3s; }
+.social-net-btn:hover .social-icon { transform: scale(1.2); }
+.social-name { font-size: 0.8rem; font-weight: 800; }
+.social-followers { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.template-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+.template-card:hover { transform: scale(1.03); }
+.template-preview {
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.template-preview::after {
+  content: 'USAR';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,153,255,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.template-card:hover .template-preview::after { opacity: 1; }
+.template-label { font-size: 0.78rem; font-weight: 800; padding: 8px 10px; }
+.template-type { font-size: 0.68rem; color: rgba(255,255,255,0.4); padding: 0 10px 8px; }
+
+/* Notifications panel */
+.notif-list { }
+.notif-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  align-items: flex-start;
+}
+.notif-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.nd-new { background: var(--coral); box-shadow: 0 0 8px rgba(0,153,255,0.6); }
+.nd-payment { background: var(--teal); box-shadow: 0 0 8px rgba(57,255,158,0.6); }
+.nd-confirm { background: var(--gold); box-shadow: 0 0 8px rgba(0,221,184,0.6); }
+.notif-text { flex: 1; }
+.notif-msg { font-size: 0.83rem; margin-bottom: 3px; }
+.notif-time { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
+
+/* ─── PUBLISH MODAL ─── */
+.publish-modal {
+  max-width: 620px;
+}
+.post-preview-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.post-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+}
+.preview-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--coral), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.preview-name { font-weight: 800; font-size: 0.88rem; }
+.preview-handle { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+.preview-content { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 0.8rem; }
+.preview-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+.networks-to-post {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.net-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.net-chip.sel { border-color: var(--teal); background: rgba(57,255,158,0.12); color: var(--teal); }
+
+/* ─── MISC ─── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.tag-coral { background: rgba(0,153,255,0.15); color: var(--coral); }
+.tag-gold { background: rgba(0,221,184,0.15); color: var(--gold); }
+.tag-teal { background: rgba(57,255,158,0.15); color: var(--teal); }
+
+/* toast */
+.toast {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  background: var(--deep);
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  z-index: 9999;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events: none;
+  max-width: 340px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast-icon { font-size: 1.4rem; }
+.toast-msg { }
+.toast-msg strong { color: var(--teal); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .social-networks { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Gradient backgrounds for video thumbs and post media */
+.grad-1 { background: linear-gradient(135deg, #0055CC, #0099FF); }
+.grad-2 { background: linear-gradient(135deg, #1a47cc, #0099FF); }
+.grad-3 { background: linear-gradient(135deg, #00DDB8, #39FF9E); }
+.grad-4 { background: linear-gradient(135deg, #0066CC, #00AADD); }
+.grad-5 { background: linear-gradient(135deg, #0A1F40, #004C99); }
+.grad-6 { background: linear-gradient(135deg, #004899, #0099FF, #00DDB8); }
+
+/* Admin sub-page visibility */
+.admin-page { display: none; }
+.admin-page.active { display: block; }
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.admin-header h2 {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.8rem;
+}
+
+.notice-card {
+  background: linear-gradient(135deg, rgba(0,153,255,0.15), rgba(0,221,184,0.08));
+  border: 1px solid rgba(0,153,255,0.3);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.confirm-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ─── FLOATING ADMIN BUTTON ─── */
+.fab-admin {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 900;
+  background: linear-gradient(135deg, var(--coral), #0055EE);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,100,255,0.5);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.5px;
+}
+.fab-admin:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 32px rgba(0,100,255,0.65);
+}
+</style>
+</head>
+<body>
+
+<!-- Floating music notes -->
+<div class="notes-bg" id="notesBg"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showSection('home')">
+    <div class="logo-icon">💃</div>
+    <div class="logo-text">
+      Ritmo Latino PVR
+      <span class="logo-sub">PUERTO VALLARTA · JALISCO</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="showSection('home')" id="nav-home" class="active">Inicio</a></li>
+    <li><a href="#" onclick="showSection('clases')" id="nav-clases">Clases</a></li>
+    <li><a href="#" onclick="showSection('videos')" id="nav-videos">Videos</a></li>
+    <li><a href="#" onclick="showSection('comunidad')" id="nav-comunidad">Comunidad</a></li>
+    <li><a href="#" onclick="showSection('admin')" id="nav-admin" style="background:linear-gradient(135deg,rgba(0,221,184,0.15),rgba(0,153,255,0.1));border:1px solid rgba(0,221,184,0.35);color:var(--gold);font-weight:900;">⚙️ Panel Admin</a></li>
+    <li><a href="#" onclick="goToPublish();return false;" id="nav-publicar" style="background:linear-gradient(135deg,rgba(0,153,255,0.25),rgba(0,221,184,0.12));border:1px solid rgba(0,153,255,0.4);color:var(--coral);font-weight:900;">📢 Publicar</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">Iniciar sesión</button>
+    <button class="btn btn-coral btn-sm" onclick="openModal('registerModal')">🎵 Inscribirme</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HOME / HERO
+═══════════════════════════════════════════ -->
+<section class="section active" id="home">
+  <div id="hero">
+    <div class="hero-badge">✨ Temporada 2026 · Puerto Vallarta</div>
+    <h1 class="hero-title">
+      Siente el<br>
+      <span>Ritmo Latino</span>
+    </h1>
+    <p class="hero-sub">Clases de Salsa, Bachata, Merengue y más. Con el Profe Roberto Villavicencio en el corazón de Puerto Vallarta, Jalisco.</p>
+    <div class="hero-prof">
+      <div class="prof-avatar">🕺</div>
+      <div class="prof-info">
+        <div class="prof-name">Roberto Villavicencio</div>
+        <div class="prof-title">🏆 Director Artístico · Instructor Certificado</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn btn-coral btn-lg" onclick="showSection('clases')">🗓 Ver Clases Disponibles</button>
+      <button class="btn btn-gold btn-lg" onclick="showSection('videos')">▶ Ver Videos</button>
+      <button class="btn btn-outline btn-lg" onclick="showSection('comunidad')">🌟 Unirme a la Comunidad</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">320+</div>
+        <div class="stat-label">ALUMNOS ACTIVOS</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">CLASES SEMANALES</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">ESTILOS DE BAILE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">AÑOS DE EXPERIENCIA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CLASES
+═══════════════════════════════════════════ -->
+<section class="section" id="clases">
+  <div class="section-header">
+    <h2 class="section-title">Nuestras <span>Clases</span></h2>
+    <p class="section-desc">Encuentra tu horario y reserva tu lugar. Cupos limitados.</p>
+  </div>
+
+  <!-- Mini calendar -->
+  <div class="calendar-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <h3 style="font-family:'Abril Fatface',serif;font-size:1.2rem;">📅 Marzo 2025</h3>
+      <div style="display:flex;gap:8px;">
+        <span class="tag tag-coral">■ Salsa</span>
+        <span class="tag tag-gold">■ Bachata</span>
+        <span class="tag tag-teal">■ Merengue</span>
+        <span style="background:rgba(160,112,255,0.15);color:#7DD4FF;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;">■ Kids</span>
+      </div>
+    </div>
+    <div class="week-header">
+      <div class="week-day-label">LUN</div><div class="week-day-label">MAR</div>
+      <div class="week-day-label">MIÉ</div><div class="week-day-label">JUE</div>
+      <div class="week-day-label">VIE</div><div class="week-day-label">SÁB</div>
+      <div class="week-day-label">DOM</div>
+    </div>
+    <div class="calendar-grid" id="calGrid"></div>
+  </div>
+
+  <!-- Class Cards -->
+  <div class="classes-grid">
+
+    <!-- Card 1 -->
+    <div class="class-card">
+      <div class="card-header">
+        <div class="card-level-badge badge-beginner">Principiantes</div>
+        <div class="card-style">Salsa en Línea</div>
+        <div class="card-title">Salsa en Línea 🔥</div>
+        <div class="card-day">📅 Lunes y Miércoles · 7:00 – 8:30 PM</div>
+      </div>
+      <div class="card-body">
+        <div class="card-info-row">
+          <div class="info-item"><div class="info-label">DURACIÓN</div><div class="info-val">90 min</div></div>
+          <div class="info-item"><div class="info-label">NIVEL</div><div class="info-val">Básico</div></div>
+          <div class="info-item"><div class="info-label">CUPO MÁX.</div><div class="info-val">20 personas</div></div>
+        </div>
+        <div class="spots-bar-wrap">
+          <div class="spots-label"><span>Lugares disponibles</span><span style="color:var(--teal);font-weight:800;">13 / 20</span></div>
+          <div class="spots-bar"><div class="spots-fill fill-green" style="width:35%"></div></div>
+        </div>
+        <div class="address-row">
+          <span class="address-icon">📍</span>
+          <span>Av. Insurgentes 120, Col. Centro, Puerto Vallarta · Salón Cultural Vallarta</span>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">$800 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period">por mes · 8 clases</div>
+          </div>
+          <button class="btn btn-coral" onclick="openClassModal('Salsa en Línea – Principiantes','Lun & Mié 7:00 PM','$800 MXN/mes','Salón Cultural Vallarta')">Inscribirme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="class-card">
+      <div class="card-header" style="background:linear-gradient(135deg, rgba(0,221,184,0.05), transparent)">
+        <div class="card-level-badge badge-intermediate">Intermedio</div>
+        <div class="card-style">Bachata Romántica</div>
+        <div class="card-title">Sensación Bachata 💛</div>
+        <div class="card-day">📅 Martes y Jueves · 8:00 – 9:30 PM</div>
+      </div>
+      <div class="card-body">
+        <div class="card-info-row">
+          <div class="info-item"><div class="info-label">DURACIÓN</div><div class="info-val">90 min</div></div>
+          <div class="info-item"><div class="info-label">NIVEL</div><div class="info-val">Intermedio</div></div>
+          <div class="info-item"><div class="info-label">CUPO MÁX.</div><div class="info-val">16 personas</div></div>
+        </div>
+        <div class="spots-bar-wrap">
+          <div class="spots-label"><span>Lugares disponibles</span><span style="color:var(--gold);font-weight:800;">4 / 16</span></div>
+          <div class="spots-bar"><div class="spots-fill fill-yellow" style="width:75%"></div></div>
+        </div>
+        <div class="address-row">
+          <span class="address-icon">📍</span>
+          <span>Calle Miramar 340, Col. Emiliano Zapata · Studio Dance PVR</span>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">$950 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period">por mes · 8 clases</div>
+          </div>
+          <button class="btn btn-coral" onclick="openClassModal('Bachata Romántica – Intermedio','Mar & Jue 8:00 PM','$950 MXN/mes','Studio Dance PVR')">Inscribirme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="class-card">
+      <div class="card-header">
+        <div class="card-level-badge badge-advanced">Avanzado</div>
+        <div class="card-style">Salsa + Shines</div>
+        <div class="card-title">Fuego en los Pies 💃</div>
+        <div class="card-day">📅 Viernes · 7:00 – 9:00 PM</div>
+      </div>
+      <div class="card-body">
+        <div class="card-info-row">
+          <div class="info-item"><div class="info-label">DURACIÓN</div><div class="info-val">2 hrs</div></div>
+          <div class="info-item"><div class="info-label">NIVEL</div><div class="info-val">Avanzado</div></div>
+          <div class="info-item"><div class="info-label">CUPO MÁX.</div><div class="info-val">12 personas</div></div>
+        </div>
+        <div class="spots-bar-wrap">
+          <div class="spots-label"><span>Lugares disponibles</span><span style="color:var(--coral);font-weight:800;">2 / 12</span></div>
+          <div class="spots-bar"><div class="spots-fill fill-red" style="width:83%"></div></div>
+        </div>
+        <div class="address-row">
+          <span class="address-icon">📍</span>
+          <span>Av. Francisco Villa 890, Fluvial Vallarta · Estudio Roberto V.</span>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">$1,200 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period">por mes · 4 clases</div>
+          </div>
+          <button class="btn btn-coral" onclick="openClassModal('Salsa Avanzado + Shines','Viernes 7:00 PM','$1,200 MXN/mes','Estudio Roberto V.')">Inscribirme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="class-card">
+      <div class="card-header">
+        <div class="card-level-badge badge-kids">Kids 5–12 años</div>
+        <div class="card-style">Baile Latino Infantil</div>
+        <div class="card-title">Pequeños Ritmos 🌟</div>
+        <div class="card-day">📅 Sábados · 10:00 – 11:00 AM</div>
+      </div>
+      <div class="card-body">
+        <div class="card-info-row">
+          <div class="info-item"><div class="info-label">DURACIÓN</div><div class="info-val">60 min</div></div>
+          <div class="info-item"><div class="info-label">NIVEL</div><div class="info-val">Todos</div></div>
+          <div class="info-item"><div class="info-label">CUPO MÁX.</div><div class="info-val">15 personas</div></div>
+        </div>
+        <div class="spots-bar-wrap">
+          <div class="spots-label"><span>Lugares disponibles</span><span style="color:var(--teal);font-weight:800;">8 / 15</span></div>
+          <div class="spots-bar"><div class="spots-fill fill-green" style="width:47%"></div></div>
+        </div>
+        <div class="address-row">
+          <span class="address-icon">📍</span>
+          <span>Av. Insurgentes 120, Col. Centro · Salón Cultural Vallarta</span>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">$600 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period">por mes · 4 clases</div>
+          </div>
+          <button class="btn btn-coral" onclick="openClassModal('Baile Latino Infantil','Sábados 10:00 AM','$600 MXN/mes','Salón Cultural Vallarta')">Inscribirme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="class-card">
+      <div class="card-header">
+        <div class="card-level-badge badge-beginner">Principiantes</div>
+        <div class="card-style">Merengue Tropical</div>
+        <div class="card-title">Merengue Mix 🎺</div>
+        <div class="card-day">📅 Miércoles · 6:00 – 7:00 PM</div>
+      </div>
+      <div class="card-body">
+        <div class="card-info-row">
+          <div class="info-item"><div class="info-label">DURACIÓN</div><div class="info-val">60 min</div></div>
+          <div class="info-item"><div class="info-label">NIVEL</div><div class="info-val">Básico</div></div>
+          <div class="info-item"><div class="info-label">CUPO MÁX.</div><div class="info-val">18 personas</div></div>
+        </div>
+        <div class="spots-bar-wrap">
+          <div class="spots-label"><span>Lugares disponibles</span><span style="color:var(--teal);font-weight:800;">11 / 18</span></div>
+          <div class="spots-bar"><div class="spots-fill fill-green" style="width:39%"></div></div>
+        </div>
+        <div class="address-row">
+          <span class="address-icon">📍</span>
+          <span>Blvd. Francisco Medina Ascencio 2500 · Centro Deportivo Gaviotas</span>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">$700 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period">por mes · 4 clases</div>
+          </div>
+          <button class="btn btn-coral" onclick="openClassModal('Merengue Mix','Miércoles 6:00 PM','$700 MXN/mes','Centro Deportivo Gaviotas')">Inscribirme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 — CUMBIA -->
+    <div class="class-card">
+      <div class="card-header">
+        <div class="card-level-badge badge-beginner">Principiantes</div>
+        <div class="card-style">Cumbia Colombiana</div>
+        <div class="card-title">Cumbia Vibes 🪗</div>
+        <div class="card-day">📅 Jueves · 6:00 – 7:00 PM</div>
+      </div>
+      <div class="card-body">
+        <div class="card-info-row">
+          <div class="info-item"><div class="info-label">DURACIÓN</div><div class="info-val">60 min</div></div>
+          <div class="info-item"><div class="info-label">NIVEL</div><div class="info-val">Básico</div></div>
+          <div class="info-item"><div class="info-label">CUPO MÁX.</div><div class="info-val">18 personas</div></div>
+        </div>
+        <div class="spots-bar-wrap">
+          <div class="spots-label"><span>Lugares disponibles</span><span style="color:var(--teal);font-weight:800;">14 / 18</span></div>
+          <div class="spots-bar"><div class="spots-fill fill-green" style="width:22%"></div></div>
+        </div>
+        <div class="address-row">
+          <span class="address-icon">📍</span>
+          <span>Av. Insurgentes 120, Col. Centro · Salón Cultural Vallarta</span>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">$650 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period">por mes · 4 clases</div>
+          </div>
+          <button class="btn btn-coral" onclick="openClassModal('Cumbia Colombiana','Jueves 6:00 PM','$650 MXN/mes','Salón Cultural Vallarta')">Inscribirme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 7 — PAQUETE -->
+    <div class="class-card" style="border-color: var(--gold);">
+      <div class="card-header" style="background:linear-gradient(135deg,rgba(0,221,184,0.12),rgba(0,153,255,0.08));">
+        <div class="card-level-badge badge-intermediate" style="background:rgba(0,221,184,0.2);border-color:var(--gold);color:var(--gold);">⭐ Paquete Especial</div>
+        <div class="card-style" style="color:var(--gold);">Todos los Estilos</div>
+        <div class="card-title">Pack Ritmo Latino 🎊</div>
+        <div class="card-day">📅 Acceso a todas las clases del mes</div>
+      </div>
+      <div class="card-body">
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-bottom:1rem;line-height:1.7;">
+          ✅ Salsa en Línea · ✅ Bachata · ✅ Merengue · ✅ Cumbia<br>
+          ✅ Acceso ilimitado · ✅ App de seguimiento<br>
+          ✅ 1 clase particular incluida
+        </div>
+        <div class="promo-box">
+          <span class="promo-icon">🎁</span>
+          <div><strong>¡Ahorra $500!</strong> vs. inscripción individual.<br>Incluye acceso a concursos.</div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price" style="color:var(--gold);">$1,999 <span style="font-size:0.9rem;">MXN</span></div>
+            <div class="price-period" style="text-decoration:line-through;color:rgba(255,255,255,0.3);">Antes: $2,500 MXN</div>
+          </div>
+          <button class="btn btn-gold" onclick="openClassModal('Pack Ritmo Latino – Todo Incluido','Todas las clases','$1,999 MXN/mes','Todos los estudios')">¡Lo quiero!</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     VIDEOS
+═══════════════════════════════════════════ -->
+<section class="section" id="videos">
+  <div class="section-header">
+    <h2 class="section-title">Videos & <span>Contenido</span></h2>
+    <p class="section-desc">Clases, concursos, presentaciones y más. ¡Sube tu video favorito!</p>
+  </div>
+  <div class="carousel-section">
+
+    <div class="carousel-row">
+      <div class="carousel-row-title">🔥 Lo más visto <span class="row-tag">TRENDING</span></div>
+      <div class="carousel-track-wrap">
+        <div class="carousel-track">
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Clase Abierta Salsa...')">
+            <div class="video-thumb grad-1"><div class="play-btn">▶</div><div class="video-duration">12:45</div></div>
+            <div class="video-info"><div class="video-title">Clase Abierta de Salsa en Línea — Nivel Básico</div><div class="video-meta">Profe Roberto · 2.4k vistas · hace 3 días</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Concurso Bachata...')">
+            <div class="video-thumb grad-2"><div class="play-btn">▶</div><div class="video-duration">8:20</div></div>
+            <div class="video-info"><div class="video-title">Concurso Bachata 2025 — Final Vallarta</div><div class="video-meta">Profe Roberto · 5.1k vistas · hace 5 días</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Tutorial Shines...')">
+            <div class="video-thumb grad-3"><div class="play-btn">▶</div><div class="video-duration">6:55</div></div>
+            <div class="video-info"><div class="video-title">Tutorial: Shines de Salsa para Principiantes</div><div class="video-meta">Profe Roberto · 3.8k vistas · hace 1 sem.</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Merengue Mix...')">
+            <div class="video-thumb grad-4"><div class="play-btn">▶</div><div class="video-duration">4:30</div></div>
+            <div class="video-info"><div class="video-title">Merengue Mix — Presentación Playa Vallarta</div><div class="video-meta">Profe Roberto · 1.9k vistas · hace 2 sem.</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Rueda de Casino...')">
+            <div class="video-thumb grad-5"><div class="play-btn">▶</div><div class="video-duration">15:10</div></div>
+            <div class="video-info"><div class="video-title">Rueda de Casino — Clase Grupal Completa</div><div class="video-meta">Profe Roberto · 7.2k vistas · hace 3 sem.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-row">
+      <div class="carousel-row-title">🏆 Concursos & Eventos <span class="row-tag">EN VIVO PRONTO</span></div>
+      <div class="carousel-track-wrap">
+        <div class="carousel-track">
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Gran Concurso PVR...')">
+            <div class="video-thumb grad-6"><div class="play-btn">▶</div><div class="video-duration">45:00</div></div>
+            <div class="video-info"><div class="video-title">Gran Concurso de Salsa PVR 2025 — Noche Final</div><div class="video-meta">Evento · 12k vistas · hace 1 mes</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Festival Latino...')">
+            <div class="video-thumb grad-1"><div class="play-btn">▶</div><div class="video-duration">32:15</div></div>
+            <div class="video-info"><div class="video-title">Festival de Música Latina — Malecón PVR</div><div class="video-meta">Evento · 8.5k vistas · hace 6 sem.</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Audiciones...')">
+            <div class="video-thumb grad-2"><div class="play-btn">▶</div><div class="video-duration">22:40</div></div>
+            <div class="video-info"><div class="video-title">Audiciones Compañía Ritmo Latino 2025</div><div class="video-meta">Evento · 4.3k vistas · hace 2 meses</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Gala de Fin de Año...')">
+            <div class="video-thumb grad-3"><div class="play-btn">▶</div><div class="video-duration">1:02:00</div></div>
+            <div class="video-info"><div class="video-title">Gala de Fin de Año — Alumnos 2024</div><div class="video-meta">Evento · 18.7k vistas · hace 3 meses</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-row">
+      <div class="carousel-row-title">🎓 Tutoriales Gratis</div>
+      <div class="carousel-track-wrap">
+        <div class="carousel-track">
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Pasos básicos salsa...')">
+            <div class="video-thumb grad-4"><div class="play-btn">▶</div><div class="video-duration">9:20</div></div>
+            <div class="video-info"><div class="video-title">5 Pasos Básicos de Salsa que Debes Saber</div><div class="video-meta">Tutorial · 22k vistas</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Cuerpo y postura...')">
+            <div class="video-thumb grad-5"><div class="play-btn">▶</div><div class="video-duration">7:45</div></div>
+            <div class="video-info"><div class="video-title">Cuerpo y Postura en Bachata — Guía Completa</div><div class="video-meta">Tutorial · 14k vistas</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Calentamiento...')">
+            <div class="video-thumb grad-6"><div class="play-btn">▶</div><div class="video-duration">5:15</div></div>
+            <div class="video-info"><div class="video-title">Calentamiento para Bailarines de Salsa</div><div class="video-meta">Tutorial · 9.8k vistas</div></div>
+          </div>
+          <div class="video-card" onclick="showToast('▶ Reproduciendo: Giros básicos...')">
+            <div class="video-thumb grad-1"><div class="play-btn">▶</div><div class="video-duration">11:30</div></div>
+            <div class="video-info"><div class="video-title">Giros y Vueltas — Guía Paso a Paso</div><div class="video-meta">Tutorial · 31k vistas</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Upload CTA -->
+  <div style="text-align:center; padding: 2rem; border-top: 1px solid var(--border); margin: 0 2rem;">
+    <div style="font-size:2rem; margin-bottom:8px;">📤</div>
+    <h3 style="font-family:'Abril Fatface',serif; font-size:1.4rem; margin-bottom:8px;">¿Quieres subir un video?</h3>
+    <p style="color:rgba(255,255,255,0.5); font-size:0.88rem; margin-bottom:1.5rem;">Comparte tus avances, presentaciones o momentos especiales con la comunidad.</p>
+    <button class="btn btn-gold" onclick="showToast('📤 Función de subida de video próximamente')">📤 Subir mi Video</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     COMUNIDAD
+═══════════════════════════════════════════ -->
+<section class="section" id="comunidad">
+  <div class="section-header">
+    <h2 class="section-title">La <span>Comunidad</span> Latina</h2>
+    <p class="section-desc">Conecta con personas que aman la música y el baile latino.</p>
+  </div>
+  <div class="community-layout">
+    <!-- Feed -->
+    <div class="feed">
+      <div class="create-post">
+        <div class="post-avatar">🕺</div>
+        <div class="post-input-wrap">
+          <textarea class="post-input" rows="2" placeholder="¿Qué está pasando en la pista? Comparte con la comunidad..."></textarea>
+          <div class="post-actions">
+            <button class="btn btn-sm btn-coral" onclick="showToast('📸 Función de foto próximamente')">📸 Foto</button>
+            <button class="btn btn-sm btn-outline" onclick="showToast('🎥 Función de video próximamente')">🎥 Video</button>
+            <button class="btn btn-sm btn-outline" onclick="showToast('🎵 Función de audio próximamente')">🎵 Audio</button>
+            <button class="btn btn-sm btn-gold" style="margin-left:auto;" onclick="showToast('✅ ¡Publicado!')">Publicar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Posts -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#0099FF,#00DDB8);">🎓</div>
+          <div class="post-user-info">
+            <div class="post-user-name">Roberto Villavicencio</div>
+            <div class="post-user-role">🏆 Director & Instructor</div>
+          </div>
+          <div class="post-time">hace 2 horas</div>
+        </div>
+        <div class="post-content">🔥 ¡Hoy fue increíble! El grupo de Salsa Avanzado superó todos mis expectativas. Ya están listos para el concurso de Abril. ¡Los cupos para el siguiente nivel están abiertos! Regístrense antes de que se llenen los lugares. 💃🕺<br><br>#SalsaPVR #RitmoLatinoPVR #PuertoVallarta #BaileSalsa</div>
+        <div class="post-media grad-1" style="border-radius:12px;margin-bottom:1rem;">🎬</div>
+        <div class="post-reactions">
+          <button class="reaction-btn active" onclick="this.classList.toggle('active')">❤️ 128</button>
+          <button class="reaction-btn" onclick="this.classList.toggle('active')">💬 34 comentarios</button>
+          <button class="reaction-btn" onclick="showToast('🔗 ¡Enlace copiado!')">🔗 Compartir</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#39FF9E,#1da1f2);">💃</div>
+          <div class="post-user-info">
+            <div class="post-user-name">Sofía Ramírez</div>
+            <div class="post-user-role">Alumna · Nivel Intermedio</div>
+          </div>
+          <div class="post-time">hace 5 horas</div>
+        </div>
+        <div class="post-content">¡3 meses bailando Bachata y ya no me reconozco! El Profe Roberto tiene una paciencia infinita y una manera de enseñar que te engancha. Si están dudando de inscribirse, no lo piensen más. 🥲💛 #Bachata #Vallarta</div>
+        <div class="post-reactions">
+          <button class="reaction-btn" onclick="this.classList.toggle('active')">❤️ 47</button>
+          <button class="reaction-btn" onclick="this.classList.toggle('active')">💬 12 comentarios</button>
+          <button class="reaction-btn" onclick="showToast('🔗 ¡Enlace copiado!')">🔗 Compartir</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#003580,#0077FF);">🎺</div>
+          <div class="post-user-info">
+            <div class="post-user-name">Carlos Mendoza</div>
+            <div class="post-user-role">Alumno · Nivel Básico</div>
+          </div>
+          <div class="post-time">hace 1 día</div>
+        </div>
+        <div class="post-content">Alguien más va al concurso de Salsa del sábado en el Malecón? Busco pareja para bailar! 🕺 Nivel principiante avanzando rápido jeje 😂</div>
+        <div class="post-reactions">
+          <button class="reaction-btn" onclick="this.classList.toggle('active')">❤️ 23</button>
+          <button class="reaction-btn" onclick="this.classList.toggle('active')">💬 8 comentarios</button>
+          <button class="reaction-btn" onclick="showToast('🔗 ¡Enlace copiado!')">🔗 Compartir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <div class="promo-banner" onclick="openClassModal('Pack Ritmo Latino','Acceso total','$1,999 MXN/mes','Todos los estudios')">
+        <div class="promo-icon" style="font-size:2rem;margin-bottom:4px;">🎊</div>
+        <div class="promo-title">¡Oferta de Temporada!</div>
+        <div class="promo-disc">-20% OFF</div>
+        <div class="promo-valid">Válido hasta el 31 de Marzo</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">🤝 Patrocinadores Oficiales</div>
+        <div class="sponsor-card" onclick="showToast('👟 Visitando: El Zapatillo...')">
+          <div class="sponsor-logo" style="background:linear-gradient(135deg,#0055CC,#0099FF);">👟</div>
+          <div class="sponsor-info">
+            <div class="sponsor-name">El Zapatillo</div>
+            <div class="sponsor-promo">Zapatilla de baile con descuento para alumnos</div>
+            <div class="sponsor-cat">Calzado · Accesorios de Baile · PVR</div>
+          </div>
+        </div>
+        <div class="sponsor-card" onclick="showToast('🍽 Visitando: Mestizo...')">
+          <div class="sponsor-logo" style="background:linear-gradient(135deg,#00779A,#00DDB8);">🍽</div>
+          <div class="sponsor-info">
+            <div class="sponsor-name">Mestizo</div>
+            <div class="sponsor-promo">10% de descuento presentando carnet</div>
+            <div class="sponsor-cat">Restaurante · Bar · Puerto Vallarta</div>
+          </div>
+        </div>
+        <div class="sponsor-card" onclick="showToast('🍺 Visitando: Bar Victorias...')">
+          <div class="sponsor-logo" style="background:linear-gradient(135deg,#004A8F,#0099FF);">🍺</div>
+          <div class="sponsor-info">
+            <div class="sponsor-name">Bar Victorias</div>
+            <div class="sponsor-promo">2×1 en bebidas noches de clase</div>
+            <div class="sponsor-cat">Bar · Música en Vivo · PVR</div>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="width:100%;margin-top:8px;" onclick="showToast('📧 Solicitud de patrocinio enviada')">+ Ser Patrocinador</button>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 Próximos Eventos</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:10px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;cursor:pointer;" onclick="showToast('📅 Agregando a tu calendario...')">
+            <div style="text-align:center;min-width:36px;"><div style="font-weight:800;color:var(--coral);">29</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.4);">MAR</div></div>
+            <div><div style="font-size:0.82rem;font-weight:700;">Concurso de Salsa — Malecón</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">7:00 PM · Entrada Libre</div></div>
+          </div>
+          <div style="display:flex;gap:10px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;cursor:pointer;" onclick="showToast('📅 Agregando a tu calendario...')">
+            <div style="text-align:center;min-width:36px;"><div style="font-weight:800;color:var(--gold);">5</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.4);">ABR</div></div>
+            <div><div style="font-size:0.82rem;font-weight:700;">Gran Gala de Primavera</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">8:00 PM · Hotel Krystal PVR</div></div>
+          </div>
+          <div style="display:flex;gap:10px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;cursor:pointer;" onclick="showToast('📅 Agregando a tu calendario...')">
+            <div style="text-align:center;min-width:36px;"><div style="font-weight:800;color:var(--teal);">12</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.4);">ABR</div></div>
+            <div><div style="font-size:0.82rem;font-weight:700;">Masterclass: Salsa en Línea</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">6:00 PM · $150 MXN</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔔 Confirmar Asistencia</div>
+        <p style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:1rem;">¿Irás a tu próxima clase? Confirma para que el profesor sepa.</p>
+        <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;margin-bottom:8px;">
+          <div style="font-weight:800;font-size:0.85rem;">Salsa en Línea — Básico</div>
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Lunes 24 Mar · 7:00 PM</div>
+          <div class="confirm-btn-row">
+            <button class="btn btn-teal btn-sm" onclick="showToast('✅ ¡Asistencia confirmada! El profesor ha sido notificado.')">✅ Confirmar</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('❌ Ausencia registrada. El profe fue notificado.')">❌ No asistiré</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ADMIN
+═══════════════════════════════════════════ -->
+<section class="section" id="admin">
+  <div class="admin-layout">
+    <!-- Admin Sidebar -->
+    <div class="admin-sidebar">
+      <div style="padding:1rem 1.5rem 1.5rem;">
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:6px;">SESIÓN ACTIVA</div>
+        <div style="font-weight:800;font-size:0.9rem;">Roberto Villavicencio</div>
+        <div style="font-size:0.72rem;color:var(--gold);">Administrador</div>
+      </div>
+      <div class="admin-menu-section">General</div>
+      <div class="admin-menu-item active" onclick="showAdminPage('dashboard',this)">📊 Dashboard</div>
+      <div class="admin-menu-item" onclick="showAdminPage('alumnos',this)">👥 Alumnos</div>
+      <div class="admin-menu-item" onclick="showAdminPage('notificaciones',this)">🔔 Notificaciones</div>
+      <div class="admin-menu-item" onclick="showAdminPage('pagos',this)">💳 Pagos & Cobros</div>
+      <div class="admin-menu-section">Contenido</div>
+      <div class="admin-menu-item" onclick="showAdminPage('redes',this)">📱 Redes Sociales</div>
+      <div class="admin-menu-item" onclick="showAdminPage('videos-admin',this)">🎥 Mis Videos</div>
+      <div class="admin-menu-item" onclick="showAdminPage('clases-admin',this)">🗓 Gestionar Clases</div>
+      <div class="admin-menu-section">Config</div>
+      <div class="admin-menu-item" onclick="showToast('⚙️ Abriendo configuración...')">⚙️ Configuración</div>
+    </div>
+
+    <!-- Admin Content -->
+    <div class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div class="admin-page active" id="adm-dashboard">
+        <div class="admin-header">
+          <h2>📊 Dashboard</h2>
+          <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Marzo 2025</span>
+        </div>
+
+        <!-- Alertas de hoy -->
+        <div class="notice-card">
+          <span style="font-size:1.5rem;">🔔</span>
+          <div>
+            <div style="font-weight:800;margin-bottom:3px;">3 nuevas inscripciones hoy</div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Ana González, Pedro Torres y María Sánchez se registraron en Salsa Básico y Bachata.</div>
+            <div class="confirm-btn-row">
+              <button class="btn btn-teal btn-sm" onclick="showToast('✅ Bienvenida enviada a todos')">Enviar bienvenida</button>
+              <button class="btn btn-outline btn-sm" onclick="showAdminPage('alumnos',document.querySelector(\'.admin-menu-item:nth-child(6)\'))">Ver alumnos</button>
+            </div>
+          </div>
+        </div>
+        <div class="notice-card" style="border-color:rgba(0,221,184,0.3);background:linear-gradient(135deg,rgba(0,221,184,0.1),rgba(0,153,255,0.05));">
+          <span style="font-size:1.5rem;">💳</span>
+          <div>
+            <div style="font-weight:800;margin-bottom:3px;">Pago pendiente: $950 MXN — Juan Martínez</div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Bachata Intermedio · Vence hoy 24 Mar</div>
+            <div class="confirm-btn-row">
+              <button class="btn btn-gold btn-sm" onclick="window.open('https://wa.me/523223058485?text=Hola%20Profe%20Roberto%2C%20te%20escribo%20para%20confirmar%20mi%20pago%20de%20la%20clase.','_blank')">Enviar recordatorio</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-val">320</div>
+            <div class="kpi-label">Alumnos activos</div>
+            <div class="kpi-delta">↑ +12 este mes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-val">$48,200</div>
+            <div class="kpi-label">Ingresos Marzo (MXN)</div>
+            <div class="kpi-delta">↑ +18% vs Feb</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">📋</div>
+            <div class="kpi-val">94%</div>
+            <div class="kpi-label">Asistencia promedio</div>
+            <div class="kpi-delta">↑ Excelente</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">🎓</div>
+            <div class="kpi-val">12</div>
+            <div class="kpi-label">Clases esta semana</div>
+            <div class="kpi-delta">3 mañana</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">⭐</div>
+            <div class="kpi-val">4.9</div>
+            <div class="kpi-label">Calificación promedio</div>
+            <div class="kpi-delta">↑ 28 reseñas</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">🏆</div>
+            <div class="kpi-val">7</div>
+            <div class="kpi-label">Concursos ganados</div>
+            <div class="kpi-delta">↑ 2025</div>
+          </div>
+        </div>
+
+        <!-- Próximas clases hoy -->
+        <h3 style="font-weight:800;margin-bottom:1rem;">📅 Clases de Hoy</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;">
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-weight:800;">Salsa en Línea — Básico</div>
+              <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);">7:00 PM · Salón Cultural Vallarta · 13/20 alumnos</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="showToast('📲 Recordatorio enviado a 13 alumnos')">📲 Recordar</button>
+              <button class="btn btn-sm btn-teal" onclick="showToast('✅ Lista de asistencia abierta')">✅ Lista</button>
+            </div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-weight:800;">Merengue Mix</div>
+              <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);">6:00 PM · Centro Deportivo Gaviotas · 11/18 alumnos</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="showToast('📲 Recordatorio enviado a 11 alumnos')">📲 Recordar</button>
+              <button class="btn btn-sm btn-teal" onclick="showToast('✅ Lista de asistencia abierta')">✅ Lista</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALUMNOS -->
+      <div class="admin-page" id="adm-alumnos">
+        <div class="admin-header">
+          <h2>👥 Alumnos</h2>
+          <button class="btn btn-coral btn-sm" onclick="showToast('➕ Formulario de nuevo alumno...')">+ Agregar Alumno</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:1.5rem;">
+          <input class="form-input" placeholder="🔍 Buscar alumno..." style="max-width:280px;">
+          <select class="form-input" style="max-width:200px;"><option>Todas las clases</option><option>Salsa Básico</option><option>Bachata</option><option>Merengue</option></select>
+          <select class="form-input" style="max-width:180px;"><option>Todos los estados</option><option>Activo</option><option>Pendiente</option><option>Inactivo</option></select>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);overflow:auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Alumno</th><th>Clase</th><th>Desde</th><th>Próx. Pago</th><th>Estado</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ana González</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">📱 333-456-7890</span></td>
+                <td>Salsa Básico</td><td>Mar 2025</td><td style="color:var(--teal);">Apr 1</td>
+                <td><span class="status-badge s-active">Activo</span></td>
+                <td><button class="btn btn-sm btn-outline" onclick="showToast('📲 Recordatorio enviado a Ana')">📲</button> <button class="btn btn-sm btn-outline" onclick="showToast('✉️ Email enviado')">✉️</button></td>
+              </tr>
+              <tr>
+                <td><strong>Pedro Torres</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">📱 322-111-2233</span></td>
+                <td>Bachata Intermedio</td><td>Feb 2025</td><td style="color:var(--gold);">Mar 28</td>
+                <td><span class="status-badge s-pending">Pago Pend.</span></td>
+                <td><button class="btn btn-sm btn-gold" onclick="showToast('💳 Recordatorio de pago enviado a Pedro')">💳</button> <button class="btn btn-sm btn-outline" onclick="showToast('✉️ Email enviado')">✉️</button></td>
+              </tr>
+              <tr>
+                <td><strong>María Sánchez</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">📱 322-555-8844</span></td>
+                <td>Salsa Avanzado</td><td>Ene 2025</td><td style="color:var(--teal);">Apr 1</td>
+                <td><span class="status-badge s-active">Activo</span></td>
+                <td><button class="btn btn-sm btn-outline" onclick="showToast('📲 Recordatorio enviado a María')">📲</button> <button class="btn btn-sm btn-outline" onclick="showToast('✉️ Email enviado')">✉️</button></td>
+              </tr>
+              <tr>
+                <td><strong>Luis Ramírez</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">📱 322-777-1234</span></td>
+                <td>Merengue</td><td>Oct 2024</td><td style="color:rgba(255,255,255,0.3);">—</td>
+                <td><span class="status-badge s-inactive">Inactivo</span></td>
+                <td><button class="btn btn-sm btn-coral" onclick="showToast('🔄 Recordatorio de reactivación enviado')">🔄</button></td>
+              </tr>
+              <tr>
+                <td><strong>Sofía López</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">📱 333-900-4567</span></td>
+                <td>Pack Completo</td><td>Mar 2025</td><td style="color:var(--teal);">Apr 1</td>
+                <td><span class="status-badge s-active">Activo</span></td>
+                <td><button class="btn btn-sm btn-outline" onclick="showToast('📲 Recordatorio enviado a Sofía')">📲</button> <button class="btn btn-sm btn-outline" onclick="showToast('✉️ Email enviado')">✉️</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Mostrando 5 de 320 alumnos</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline btn-sm">← Anterior</button>
+            <button class="btn btn-outline btn-sm">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFICACIONES -->
+      <div class="admin-page" id="adm-notificaciones">
+        <div class="admin-header">
+          <h2>🔔 Notificaciones</h2>
+          <button class="btn btn-coral btn-sm" onclick="showToast('📲 Enviando recordatorio masivo...')">📲 Enviar recordatorio masivo</button>
+        </div>
+        <div style="margin-bottom:1.5rem;display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-sm btn-teal" onclick="showToast('📲 Recordatorio de clase enviado a todos los alumnos de hoy')">📲 Recordar clase de hoy</button>
+          <button class="btn btn-sm btn-gold" onclick="showToast('💳 Recordatorio de pago enviado a 3 alumnos')">💳 Cobros pendientes</button>
+          <button class="btn btn-sm btn-outline" onclick="showToast('✅ Confirmaciones solicitadas')">✅ Pedir confirmaciones</button>
+        </div>
+        <div class="notif-list">
+          <div class="notif-item">
+            <div class="notif-dot nd-new"></div>
+            <div class="notif-text">
+              <div class="notif-msg"><strong>Nueva inscripción:</strong> Ana González se inscribió en Salsa Básico · $800 MXN recibidos</div>
+              <div class="notif-time">hace 2 horas</div>
+            </div>
+            <button class="btn btn-sm btn-outline" onclick="showToast('📲 Bienvenida enviada a Ana')">Responder</button>
+          </div>
+          <div class="notif-item">
+            <div class="notif-dot nd-payment"></div>
+            <div class="notif-text">
+              <div class="notif-msg"><strong>Pago confirmado:</strong> Pedro Torres · Bachata Intermedio · $950 MXN</div>
+              <div class="notif-time">hace 4 horas</div>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-dot nd-confirm"></div>
+            <div class="notif-text">
+              <div class="notif-msg"><strong>Asistencia confirmada:</strong> 11 alumnos confirmaron para Merengue Mix de hoy 6PM</div>
+              <div class="notif-time">hace 5 horas</div>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-dot nd-new"></div>
+            <div class="notif-text">
+              <div class="notif-msg"><strong>Nueva inscripción:</strong> María Sánchez se inscribió en Salsa Avanzado · Pack Anual confirmado</div>
+              <div class="notif-time">hace 6 horas</div>
+            </div>
+            <button class="btn btn-sm btn-outline" onclick="showToast('📲 Bienvenida enviada a María')">Responder</button>
+          </div>
+          <div class="notif-item">
+            <div class="notif-dot nd-payment"></div>
+            <div class="notif-text">
+              <div class="notif-msg"><strong>Pago pendiente:</strong> Juan Martínez · Bachata · Vence hoy</div>
+              <div class="notif-time">hace 8 horas</div>
+            </div>
+            <button class="btn btn-sm btn-gold" onclick="showToast('💳 Recordatorio enviado a Juan')">Recordar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGOS -->
+      <div class="admin-page" id="adm-pagos">
+        <div class="admin-header">
+          <h2>💳 Pagos & Cobros</h2>
+          <button class="btn btn-teal btn-sm" onclick="exportReport()">📊 Exportar reporte</button>
+        </div>
+
+        <!-- Aviso importante -->
+        <div style="background:linear-gradient(135deg,rgba(0,221,184,0.12),rgba(0,153,255,0.08));border:1px solid rgba(0,221,184,0.3);border-radius:14px;padding:1.2rem;margin-bottom:1.5rem;">
+          <div style="font-weight:800;font-size:0.95rem;margin-bottom:6px;">💡 ¿Cómo recibir pagos en línea?</div>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:1rem;">
+            Para cobrar con tarjeta, OXXO o transferencia directamente desde esta plataforma necesitas activar una pasarela de pago. La más recomendada para México es <strong style="color:var(--gold);">Mercado Pago</strong> — es gratis de activar y solo cobra comisión por transacción.
+          </p>
+          <a href="https://www.mercadopago.com.mx/herramientas-para-vender/link-de-pago" target="_blank" class="btn btn-gold" style="text-decoration:none;display:inline-flex;">🔗 Crear mi link de pago en Mercado Pago</a>
+        </div>
+
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.5rem;">
+          <div class="kpi-card">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-val">$48,200</div>
+            <div class="kpi-label">Cobrado este mes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">⏳</div>
+            <div class="kpi-val">$3,750</div>
+            <div class="kpi-label">Pendiente por cobrar</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon">🎁</div>
+            <div class="kpi-val">$2,400</div>
+            <div class="kpi-label">Descuentos aplicados</div>
+          </div>
+        </div>
+
+        <!-- Métodos de cobro REALES disponibles ahora -->
+        <h3 style="font-weight:800;margin-bottom:1rem;">💸 Cobrar a un alumno ahora mismo</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
+
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.2rem;cursor:pointer;" onclick="window.open('https://wa.me/523223058485','_blank')">
+            <div style="font-size:1.8rem;margin-bottom:8px;">💬</div>
+            <div style="font-weight:800;margin-bottom:4px;">WhatsApp</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:10px;">Escríbele al alumno directo para confirmar su pago o enviarle instrucciones.</div>
+            <span class="btn btn-sm" style="background:linear-gradient(135deg,#25d366,#128c7e);color:white;">Abrir WhatsApp</span>
+          </div>
+
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.2rem;cursor:pointer;" onclick="window.open('https://www.mercadopago.com.mx/herramientas-para-vender/link-de-pago','_blank')">
+            <div style="font-size:1.8rem;margin-bottom:8px;">💳</div>
+            <div style="font-weight:800;margin-bottom:4px;">Mercado Pago</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:10px;">Crea un link de cobro y mándalo al alumno. Acepta tarjeta, OXXO y transferencia.</div>
+            <span class="btn btn-sm btn-gold">Crear link de cobro</span>
+          </div>
+
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.2rem;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🏦</div>
+            <div style="font-weight:800;margin-bottom:4px;">Transferencia / SPEI</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:10px;">Datos para que el alumno transfiera directamente a tu cuenta.</div>
+            <button class="btn btn-sm btn-teal" onclick="openModal('bankModal')">Ver datos bancarios</button>
+          </div>
+
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.2rem;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">📱</div>
+            <div style="font-weight:800;margin-bottom:4px;">OXXO Pay</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:10px;">El alumno paga en efectivo en cualquier OXXO. Necesitas link de Mercado Pago.</div>
+            <a href="https://www.mercadopago.com.mx" target="_blank" class="btn btn-sm btn-outline" style="text-decoration:none;display:inline-flex;">Activar OXXO</a>
+          </div>
+        </div>
+
+        <!-- Recordatorio de cobro por WhatsApp -->
+        <h3 style="font-weight:800;margin-bottom:1rem;">📲 Enviar recordatorio de pago</h3>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1.5rem;">
+          <div class="form-group">
+            <label class="form-label">NOMBRE DEL ALUMNO</label>
+            <input class="form-input" id="payReminderName" placeholder="Ej. Ana González">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CLASE / MONTO</label>
+            <input class="form-input" id="payReminderClass" placeholder="Ej. Salsa Básico — $800 MXN">
+          </div>
+          <button class="btn btn-gold" onclick="sendPayReminder()" style="width:100%;justify-content:center;">
+            💬 Enviar recordatorio por WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <!-- REDES SOCIALES / CENTRO DE PUBLICACIONES -->
+      <div class="admin-page" id="adm-redes">
+
+        <!-- HERO BANNER del publicador -->
+        <div style="background:linear-gradient(135deg,rgba(0,153,255,0.2),rgba(0,221,184,0.1));border:1px solid rgba(0,153,255,0.35);border-radius:var(--radius);padding:1.8rem 2rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:0.72rem;letter-spacing:2px;color:var(--coral);font-weight:800;margin-bottom:6px;">CENTRO DE PUBLICACIONES</div>
+            <h2 style="font-family:'Abril Fatface',serif;font-size:2rem;margin-bottom:6px;">📢 Publica en tus Redes</h2>
+            <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);max-width:480px;">Elige una plantilla, personaliza tu mensaje y publícalo con un clic en Facebook, Instagram, YouTube, WhatsApp, TikTok y más.</p>
+          </div>
+          <button class="btn btn-coral btn-lg" style="font-size:1rem;padding:16px 36px;" onclick="openModal('publishModal')">✨ Crear Publicación Ahora</button>
+        </div>
+
+        <!-- PASO A PASO visual -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;">
+          <div style="background:rgba(0,153,255,0.08);border:1px solid rgba(0,153,255,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2.2rem;margin-bottom:8px;">🎨</div>
+            <div style="font-weight:800;font-size:0.95rem;margin-bottom:4px;">1. Elige plantilla</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Clase, Promo, Reel, Evento, Testimonio…</div>
+          </div>
+          <div style="background:rgba(0,221,184,0.08);border:1px solid rgba(0,221,184,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2.2rem;margin-bottom:8px;">✏️</div>
+            <div style="font-weight:800;font-size:0.95rem;margin-bottom:4px;">2. Personaliza</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Edita texto, imagen y mensaje</div>
+          </div>
+          <div style="background:rgba(57,255,158,0.08);border:1px solid rgba(57,255,158,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2.2rem;margin-bottom:8px;">🚀</div>
+            <div style="font-weight:800;font-size:0.95rem;margin-bottom:4px;">3. Publica</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Un clic → todas tus redes al instante</div>
+          </div>
+        </div>
+
+        <!-- PLANTILLAS -->
+        <h3 style="font-weight:800;font-size:1.1rem;margin-bottom:0.4rem;">🎨 Plantillas Listas para Publicar</h3>
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.2rem;">Haz clic en cualquiera → se abre el editor con el texto pre-llenado → ajusta y publica.</p>
+        <div class="templates-grid" style="margin-bottom:2rem;">
+          <div class="template-card" onclick="openPublishWithTemplate('clase')">
+            <div class="template-preview grad-1">📢</div>
+            <div class="template-label">Anuncio de Clase</div>
+            <div class="template-type">Instagram · Facebook · WhatsApp</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('concurso')">
+            <div class="template-preview grad-2">🏆</div>
+            <div class="template-label">Concurso / Evento</div>
+            <div class="template-type">Todas las redes</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('promo')">
+            <div class="template-preview grad-3">🎁</div>
+            <div class="template-label">Promoción Especial</div>
+            <div class="template-type">Facebook · WhatsApp · Instagram</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('logro')">
+            <div class="template-preview grad-4">⭐</div>
+            <div class="template-label">Testimonio de Alumno</div>
+            <div class="template-type">Instagram Stories · Facebook</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('horario')">
+            <div class="template-preview grad-5">📅</div>
+            <div class="template-label">Horario Semanal</div>
+            <div class="template-type">Instagram · Facebook</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('reel')">
+            <div class="template-preview grad-6">🎬</div>
+            <div class="template-label">Video / Reel / Short</div>
+            <div class="template-type">TikTok · Instagram · YouTube</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('invitacion')">
+            <div class="template-preview" style="background:linear-gradient(135deg,#00c9ff,#92fe9d);">💃</div>
+            <div class="template-label">Invitación a Clase</div>
+            <div class="template-type">WhatsApp · Facebook</div>
+          </div>
+          <div class="template-card" onclick="openPublishWithTemplate('cupos')">
+            <div class="template-preview" style="background:linear-gradient(135deg,#f7971e,#ffd200);">🔥</div>
+            <div class="template-label">¡Últimos Cupos!</div>
+            <div class="template-type">Instagram · Facebook · Stories</div>
+          </div>
+        </div>
+
+        <!-- REDES conectadas -->
+        <h3 style="font-weight:800;font-size:1.1rem;margin-bottom:0.4rem;">📡 Mis Redes Conectadas</h3>
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.2rem;">Haz clic en una red para publicar directamente en ella.</p>
+        <div class="social-networks">
+          <div class="social-net-btn fb-btn" onclick="openPublishWithTemplate('clase')">
+            <span class="social-icon">📘</span>
+            <div class="social-name">Facebook</div>
+            <div class="social-followers">4,230 seguidores</div>
+          </div>
+          <div class="social-net-btn ig-btn" onclick="openPublishWithTemplate('clase')">
+            <span class="social-icon">📸</span>
+            <div class="social-name">Instagram</div>
+            <div class="social-followers">8,120 seguidores</div>
+          </div>
+          <div class="social-net-btn yt-btn" onclick="openPublishWithTemplate('reel')">
+            <span class="social-icon">▶️</span>
+            <div class="social-name">YouTube</div>
+            <div class="social-followers">2,890 suscriptores</div>
+          </div>
+          <div class="social-net-btn tw-btn" onclick="openPublishWithTemplate('clase')">
+            <span class="social-icon">🐦</span>
+            <div class="social-name">Twitter / X</div>
+            <div class="social-followers">1,540 seguidores</div>
+          </div>
+          <div class="social-net-btn wa-btn" onclick="openPublishWithTemplate('invitacion')">
+            <span class="social-icon">💬</span>
+            <div class="social-name">WhatsApp</div>
+            <div class="social-followers">320 contactos</div>
+          </div>
+          <div class="social-net-btn tk-btn" onclick="openPublishWithTemplate('reel')">
+            <span class="social-icon">🎵</span>
+            <div class="social-name">TikTok</div>
+            <div class="social-followers">12,400 seguidores</div>
+          </div>
+        </div>
+
+        <!-- Historial rápido -->
+        <h3 style="font-weight:800;font-size:1.05rem;margin:2rem 0 0.8rem;">🕐 Últimas publicaciones</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">📸</span>
+            <div style="flex:1;">
+              <div style="font-size:0.85rem;font-weight:700;">Anuncio Salsa en Línea — Básico</div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Facebook · Instagram · WhatsApp · hace 2 horas · 128 ❤️</div>
+            </div>
+            <button class="btn btn-sm btn-outline" onclick="openPublishWithTemplate('clase')">Repetir</button>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">🏆</span>
+            <div style="flex:1;">
+              <div style="font-size:0.85rem;font-weight:700;">Concurso Salsa PVR 2025</div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Todas las redes · hace 3 días · 512 ❤️</div>
+            </div>
+            <button class="btn btn-sm btn-outline" onclick="openPublishWithTemplate('concurso')">Repetir</button>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">🎁</span>
+            <div style="flex:1;">
+              <div style="font-size:0.85rem;font-weight:700;">Promo 20% OFF — Temporada</div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Facebook · Instagram · hace 5 días · 240 ❤️</div>
+            </div>
+            <button class="btn btn-sm btn-outline" onclick="openPublishWithTemplate('promo')">Repetir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEOS ADMIN -->
+      <div class="admin-page" id="adm-videos-admin">
+        <div class="admin-header">
+          <h2>🎥 Mis Videos</h2>
+          <button class="btn btn-coral" onclick="showToast('📤 Abriendo subida de video...')">📤 Subir Video</button>
+        </div>
+        <div class="classes-grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr));">
+          <div class="video-card" style="flex:none;width:100%">
+            <div class="video-thumb grad-1"><div class="play-btn">▶</div><div class="video-duration">12:45</div></div>
+            <div class="video-info">
+              <div class="video-title">Clase Abierta de Salsa en Línea</div>
+              <div class="video-meta">2,400 vistas · Público</div>
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <button class="btn btn-sm btn-outline" onclick="showToast('✏️ Editor de video...')">✏️ Editar</button>
+                <button class="btn btn-sm btn-coral" onclick="openModal('publishModal')">📱 Publicar</button>
+              </div>
+            </div>
+          </div>
+          <div class="video-card" style="flex:none;width:100%">
+            <div class="video-thumb grad-3"><div class="play-btn">▶</div><div class="video-duration">6:55</div></div>
+            <div class="video-info">
+              <div class="video-title">Tutorial Shines — Principiantes</div>
+              <div class="video-meta">3,800 vistas · Público</div>
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <button class="btn btn-sm btn-outline" onclick="showToast('✏️ Editor de video...')">✏️ Editar</button>
+                <button class="btn btn-sm btn-coral" onclick="openModal('publishModal')">📱 Publicar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLASES ADMIN -->
+      <div class="admin-page" id="adm-clases-admin">
+        <div class="admin-header">
+          <h2>🗓 Gestionar Clases</h2>
+          <button class="btn btn-coral" onclick="showToast('➕ Formulario de nueva clase...')">+ Nueva Clase</button>
+        </div>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:1.5rem;">Administra horarios, cupos, precios y ubicaciones de cada clase.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <div>
+              <div style="font-weight:800;">🔴 Salsa en Línea — Básico</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Lun & Mié 7:00 PM · 13/20 cupos · $800/mes</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="showToast('✏️ Editando clase Salsa Básico...')">✏️ Editar</button>
+              <button class="btn btn-sm btn-gold" onclick="showToast('📲 Recordatorio enviado a 13 alumnos')">📲 Recordar</button>
+            </div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <div>
+              <div style="font-weight:800;">💛 Bachata Romántica — Intermedio</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Mar & Jue 8:00 PM · 12/16 cupos · $950/mes</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="showToast('✏️ Editando clase Bachata...')">✏️ Editar</button>
+              <button class="btn btn-sm btn-gold" onclick="showToast('📲 Recordatorio enviado a 12 alumnos')">📲 Recordar</button>
+            </div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <div>
+              <div style="font-weight:800;">🟠 Salsa Avanzado + Shines</div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Viernes 7:00 PM · 10/12 cupos · $1,200/mes</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="showToast('✏️ Editando clase Avanzado...')">✏️ Editar</button>
+              <button class="btn btn-sm btn-gold" onclick="showToast('📲 Recordatorio enviado a 10 alumnos')">📲 Recordar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MODALS
+═══════════════════════════════════════════ -->
+
+<!-- Registration / Payment Modal -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('registerModal')">✕</button>
+
+    <div id="regForm">
+      <div class="modal-title">🎵 ¡Inscríbete!</div>
+      <div class="modal-subtitle" id="classInfo">Clase seleccionada · Completa tus datos</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">NOMBRE</label>
+          <input class="form-input" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label class="form-label">APELLIDOS</label>
+          <input class="form-input" placeholder="Tus apellidos">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">TELÉFONO / WHATSAPP</label>
+          <input class="form-input" placeholder="322-305-8485">
+        </div>
+        <div class="form-group">
+          <label class="form-label">CORREO ELECTRÓNICO</label>
+          <input class="form-input" placeholder="tu@correo.com" type="email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">CLASE</label>
+        <select class="form-input" id="classSelect">
+          <option>Salsa en Línea — Básico · Lun & Mié 7PM · $800/mes</option>
+          <option>Bachata Romántica — Intermedio · Mar & Jue 8PM · $950/mes</option>
+          <option>Salsa Avanzado + Shines · Viernes 7PM · $1,200/mes</option>
+          <option>Baile Latino Infantil · Sábados 10AM · $600/mes</option>
+          <option>Merengue Mix · Miércoles 6PM · $700/mes</option>
+          <option>Cumbia Colombiana · Jueves 6PM · $650/mes</option>
+          <option>Pack Ritmo Latino — Todo Incluido · $1,999/mes</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">CÓDIGO PROMOCIONAL (OPCIONAL)</label>
+        <input class="form-input" placeholder="SALSA2025 · RITMO20 · etc.">
+      </div>
+
+      <div class="promo-box">
+        <span class="promo-icon">🎁</span>
+        <div><strong>¡Primera clase GRATIS!</strong> Para todos los nuevos alumnos.<br>Aplica automáticamente al pagar.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">MÉTODO DE PAGO</label>
+      </div>
+      <div class="payment-methods">
+        <div class="pay-method selected" onclick="selectPayMethod(this)">
+          <span class="pay-icon">💳</span>Tarjeta
+        </div>
+        <div class="pay-method" onclick="selectPayMethod(this)">
+          <span class="pay-icon">📱</span>OXXO Pay
+        </div>
+        <div class="pay-method" onclick="selectPayMethod(this)">
+          <span class="pay-icon">🏦</span>Transferencia
+        </div>
+        <div class="pay-method" onclick="selectPayMethod(this)">
+          <span class="pay-icon">💸</span>PayPal
+        </div>
+        <div class="pay-method" onclick="selectPayMethod(this)">
+          <span class="pay-icon">💬</span>WhatsApp
+        </div>
+        <div class="pay-method" onclick="selectPayMethod(this)">
+          <span class="pay-icon">🏧</span>Efectivo
+        </div>
+      </div>
+
+      <div class="total-box">
+        <div class="total-row"><span>Clase mensual</span><span>$800 MXN</span></div>
+        <div class="total-row"><span>1ra clase gratis</span><span style="color:var(--teal);">−$100 MXN</span></div>
+        <div class="total-row"><span>Descuento nuevo alumno</span><span style="color:var(--teal);">−$0</span></div>
+        <div class="total-row main"><span>Total a pagar</span><span>$700 MXN</span></div>
+      </div>
+
+      <button class="btn btn-coral btn-lg" style="width:100%;" onclick="processPayment()">💳 Pagar y Confirmar Inscripción</button>
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;margin-top:10px;">🔒 Pago 100% seguro · SSL · Datos protegidos</p>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">¡Bienvenido/a!</div>
+      <p style="color:rgba(255,255,255,0.6);margin-bottom:1.5rem;">Tu inscripción fue confirmada. El Profe Roberto ya fue notificado.<br>Recibirás confirmación por WhatsApp y correo.</p>
+      <div style="background:rgba(57,255,158,0.1);border:1px solid rgba(57,255,158,0.3);border-radius:12px;padding:14px;margin-bottom:1.5rem;text-align:left;">
+        <div style="font-weight:800;color:var(--teal);margin-bottom:8px;">📋 Tu confirmación</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.7;">
+          🎵 Clase: Salsa en Línea — Básico<br>
+          📅 Días: Lunes y Miércoles · 7:00 PM<br>
+          📍 Lugar: Salón Cultural Vallarta<br>
+          💳 Pago: $700 MXN confirmado
+        </div>
+      </div>
+      <button class="btn btn-teal btn-lg" style="width:100%;margin-bottom:10px;" onclick="window.open('https://wa.me/523223058485?text=Hola%20Profe%20Roberto%2C%20me%20interesa%20inscribirme%20en%20sus%20clases%20de%20baile%20latino%20en%20Puerto%20Vallarta.','_blank')">💬 Escribir al Profe por WhatsApp</button>
+      <button class="btn btn-outline" onclick="closeModal('registerModal')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal" style="max-width:400px;">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="modal-title">Iniciar Sesión</div>
+    <div class="modal-subtitle">Accede a tu cuenta de Ritmo Latino PVR</div>
+    <div class="form-group">
+      <label class="form-label">CORREO ELECTRÓNICO</label>
+      <input class="form-input" placeholder="tu@correo.com" type="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">CONTRASEÑA</label>
+      <input class="form-input" placeholder="••••••••" type="password">
+    </div>
+    <button class="btn btn-coral btn-lg" style="width:100%;margin-bottom:10px;" onclick="closeModal('loginModal');showToast('✅ ¡Sesión iniciada!')">Entrar</button>
+    <button class="btn btn-outline" style="width:100%;" onclick="closeModal('loginModal');openModal('registerModal')">¿No tienes cuenta? Regístrate</button>
+  </div>
+</div>
+
+<!-- Publish Modal -->
+<div class="modal-overlay" id="publishModal">
+  <div class="modal publish-modal" style="max-width:640px;">
+    <button class="modal-close" onclick="closeModal('publishModal')">✕</button>
+    <div class="modal-title">📱 Publicar en Redes Sociales</div>
+    <div class="modal-subtitle">Edita el mensaje y toca la red donde quieres publicar</div>
+
+    <div class="form-group">
+      <label class="form-label">PLANTILLA DE PUBLICACIÓN</label>
+      <select class="form-input" id="templateSelect" onchange="loadTemplate()">
+        <option value="clase">📢 Anuncio de Clase Nueva</option>
+        <option value="concurso">🏆 Concurso / Evento</option>
+        <option value="promo">🎁 Promoción Especial 20% OFF</option>
+        <option value="horario">📅 Horario de esta Semana</option>
+        <option value="logro">⭐ Testimonio / Logro de Alumno</option>
+        <option value="reel">🎬 Descripción para Video/Reel</option>
+        <option value="invitacion">💃 Invitación a Clase</option>
+        <option value="cupos">🔥 ¡Últimos Cupos!</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">✏️ EDITA TU MENSAJE AQUÍ</label>
+      <textarea class="form-input" id="postText" rows="6" style="resize:vertical;font-size:0.85rem;line-height:1.5;"></textarea>
+    </div>
+
+    <!-- Vista previa -->
+    <div class="post-preview-box" style="margin-bottom:1rem;">
+      <div class="post-preview-header">
+        <div class="preview-avatar">🕺</div>
+        <div>
+          <div class="preview-name">Roberto Villavicencio</div>
+          <div class="preview-handle">@RitmoLatinoPVR</div>
+        </div>
+      </div>
+      <div class="preview-content" id="previewContent" style="white-space:pre-line;font-size:0.82rem;"></div>
+    </div>
+
+    <!-- Botones por red social — cada uno abre directamente esa app/web -->
+    <div style="font-size:0.78rem;font-weight:800;color:rgba(255,255,255,0.5);letter-spacing:1px;margin-bottom:10px;">👇 TOCA LA RED DONDE QUIERES PUBLICAR:</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;">
+
+      <button class="btn btn-lg" style="background:linear-gradient(135deg,#1877f2,#0a5cbf);color:white;justify-content:center;font-size:0.9rem;" onclick="publishTo('facebook')">
+        📘 Publicar en Facebook
+      </button>
+
+      <button class="btn btn-lg" style="background:linear-gradient(135deg,#833AB4,#FD1D1D,#F77737);color:white;justify-content:center;font-size:0.9rem;" onclick="publishTo('instagram')">
+        📸 Abrir Instagram
+      </button>
+
+      <button class="btn btn-lg" style="background:linear-gradient(135deg,#25d366,#128c7e);color:white;justify-content:center;font-size:0.9rem;" onclick="publishTo('whatsapp')">
+        💬 Enviar por WhatsApp
+      </button>
+
+      <button class="btn btn-lg" style="background:linear-gradient(135deg,#000,#333);color:white;justify-content:center;font-size:0.9rem;" onclick="publishTo('tiktok')">
+        🎵 Abrir TikTok
+      </button>
+
+      <button class="btn btn-lg" style="background:linear-gradient(135deg,#1da1f2,#0d8ed9);color:white;justify-content:center;font-size:0.9rem;" onclick="publishTo('twitter')">
+        🐦 Publicar en Twitter/X
+      </button>
+
+      <button class="btn btn-lg" style="background:linear-gradient(135deg,#ff0000,#cc0000);color:white;justify-content:center;font-size:0.9rem;" onclick="publishTo('youtube')">
+        ▶️ Abrir YouTube Studio
+      </button>
+    </div>
+
+    <!-- Copiar texto -->
+    <button class="btn btn-teal btn-lg" style="width:100%;justify-content:center;margin-bottom:8px;" onclick="copyPostText()">
+      📋 Copiar texto al portapapeles
+    </button>
+    <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;">
+      Al tocar cada red, se copia el texto automáticamente y se abre la app lista para pegar y publicar.
+    </p>
+  </div>
+</div>
+
+
+<!-- Bank Modal -->
+<div class="modal-overlay" id="bankModal">
+  <div class="modal" style="max-width:420px;">
+    <button class="modal-close" onclick="closeModal('bankModal')">✕</button>
+    <div class="modal-title">🏦 Datos Bancarios</div>
+    <div class="modal-subtitle">Comparte estos datos con el alumno para transferencia SPEI</div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:1.2rem;margin-bottom:1rem;font-size:0.88rem;line-height:2;">
+      <div><span style="color:rgba(255,255,255,0.45);font-size:0.72rem;">BANCO</span><br><strong>BBVA / Banamex / SPEI</strong></div>
+      <div style="margin-top:8px;"><span style="color:rgba(255,255,255,0.45);font-size:0.72rem;">TITULAR</span><br><strong>Roberto Villavicencio</strong></div>
+      <div style="margin-top:8px;"><span style="color:rgba(255,255,255,0.45);font-size:0.72rem;">CONCEPTO</span><br><strong>Clases Ritmo Latino PVR + tu nombre</strong></div>
+    </div>
+    <div style="background:rgba(0,221,184,0.08);border:1px solid rgba(0,221,184,0.25);border-radius:10px;padding:10px;font-size:0.8rem;color:rgba(255,255,255,0.6);margin-bottom:1rem;">
+      ℹ️ Actualiza los datos bancarios reales en el código, en la sección "bankModal". Contacta al desarrollador o edita el archivo directamente.
+    </div>
+    <button class="btn btn-teal" style="width:100%;justify-content:center;" onclick="copyBankData()">📋 Copiar datos bancarios</button>
+  </div>
+</div>
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">✅</div>
+  <div class="toast-msg" id="toastMsg"></div>
+</div>
+
+<!-- ─── SCRIPT ─── -->
+<script>
+// ── FLOATING NOTES ──
+const notesContainer = document.getElementById('notesBg');
+const noteChars = ['♩','♪','♫','♬','🎵','🎶','🎸','🎺','🥁'];
+for(let i = 0; i < 18; i++){
+  const n = document.createElement('div');
+  n.className = 'note';
+  n.textContent = noteChars[Math.floor(Math.random()*noteChars.length)];
+  n.style.left = Math.random()*100 + 'vw';
+  n.style.fontSize = (0.8 + Math.random()*1.2) + 'rem';
+  n.style.animationDuration = (12 + Math.random()*15) + 's';
+  n.style.animationDelay = (Math.random()*12) + 's';
+  notesContainer.appendChild(n);
+}
+
+// ── SECTION NAVIGATION ──
+function showSection(id){
+  // Ocultar TODAS las secciones completamente
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  // Mostrar solo la sección destino
+  const sec = document.getElementById(id);
+  if(sec){ sec.classList.add('active'); sec.style.display = 'block'; }
+  const navEl = document.getElementById('nav-'+id);
+  if(navEl) navEl.classList.add('active');
+  // Siempre regresa al inicio de la página
+  window.scrollTo({top:0, behavior:'instant'});
+  return false;
+}
+
+// ── ADMIN PAGES ──
+function showAdminPage(id, el){
+  document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.admin-menu-item').forEach(i => i.classList.remove('active'));
+  const page = document.getElementById('adm-'+id);
+  if(page) page.classList.add('active');
+  if(el) el.classList.add('active');
+}
+
+// ── MODALS ──
+function openModal(id){
+  document.getElementById(id).classList.add('open');
+  if(id === 'publishModal'){
+    // init with first template if textarea is empty
+    const ta = document.getElementById('postText');
+    if(ta && !ta.value.trim()){
+      loadTemplate();
+    } else if(ta) {
+      updatePreview();
+    }
+  }
+}
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+  if(id === 'registerModal'){
+    document.getElementById('regForm').style.display = 'block';
+    document.getElementById('successScreen').classList.remove('show');
+  }
+}
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target === o) o.classList.remove('open'); });
+});
+
+function openClassModal(name, schedule, price, location){
+  document.getElementById('classInfo').textContent = name + ' · ' + schedule;
+  openModal('registerModal');
+}
+
+// ── PAYMENT METHODS ──
+function selectPayMethod(el){
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── PROCESS PAYMENT ──
+function processPayment(){
+  document.getElementById('regForm').style.display = 'none';
+  document.getElementById('successScreen').classList.add('show');
+  showToast('🔔 ¡El Profe Roberto fue notificado de tu inscripción!');
+}
+
+// ── PUBLISH FUNCTIONS ──
+const PROFE_PHONE = '523223058485';
+
+const templateTextsModal = {
+  clase: `🔥 ¡Nueva clase de Salsa en Línea disponible!
+
+💃 Horario: Lunes y Miércoles 7:00 PM
+📍 Salón Cultural Vallarta, Centro PVR
+💰 Solo $800 MXN/mes · ¡Cupos limitados!
+✅ Primera clase GRATIS para nuevos alumnos
+
+📲 Info: ritmolatinopvr.com
+📞 WhatsApp: 322-305-8485
+
+#SalsaEnLinea #BaileLatinoVallarta #RitmoLatinoPVR #PuertoVallarta`,
+
+  concurso: `🏆 ¡GRAN CONCURSO DE SALSA PVR 2026!
+
+📅 Sábado 29 de Marzo · 7:00 PM
+📍 Malecón de Puerto Vallarta
+🎁 Premios increíbles · ¡Entrada LIBRE!
+💃 Categorías: Básico · Intermedio · Avanzado
+
+¡Inscríbete ya con el Profe Roberto!
+📞 322-305-8485
+
+#ConcursoSalsaPVR #RitmoLatinoPVR #PuertoVallarta`,
+
+  promo: `🎁 ¡OFERTA ESPECIAL DE TEMPORADA 2026!
+
+🔥 20% de DESCUENTO en todas las clases
+⏰ Válido solo hasta el 31 de Marzo
+💰 Ahorra hasta $500 MXN con el Pack Completo
+
+✅ Inscríbete hoy
+📲 ritmolatinopvr.com
+📞 322-305-8485
+
+#Descuento #SalsaPVR #BaileLatinoVallarta`,
+
+  horario: `📅 HORARIO ESTA SEMANA — Ritmo Latino PVR
+
+🔴 Lun & Mié 7PM → Salsa en Línea (Básico)
+💛 Mar & Jue 8PM → Bachata (Intermedio)
+🟢 Mié 6PM → Merengue Mix
+🟠 Jue 6PM → Cumbia
+⚡ Vie 7PM → Salsa (Avanzado)
+🟣 Sáb 10AM → Kids Dance
+
+¡Cupos limitados! Aparta tu lugar👇
+📞 322-305-8485
+
+#RitmoLatinoPVR #SalsaPVR #PuertoVallarta`,
+
+  logro: `⭐ ¡Felicitamos a nuestra alumna del mes!
+
+Solo 3 meses con nosotros y ya baila como profesional 💪🎉
+
+¿Tú también quieres lograrlo?
+✅ Clases para todos los niveles
+📞 322-305-8485
+
+#Orgullosos #SalsaPVR #RitmoLatinoPVR`,
+
+  reel: `🎬 ¡Nuevo video en nuestro canal! 🔥
+
+Mira lo que están logrando nuestros alumnos 💃🕺
+¿Te imaginas bailar así?
+
+✅ Clases para todos los niveles — ¡desde cero!
+📍 Puerto Vallarta, Jalisco
+📞 322-305-8485
+
+#Reel #SalsaPVR #BaileLatinoVallarta #TikTokDance`,
+
+  invitacion: `💃 ¡TE INVITO A BAILAR! 🕺
+
+Hola! Soy Roberto Villavicencio, instructor de baile latino en Puerto Vallarta.
+
+🎵 Salsa · Bachata · Merengue · Cumbia
+✅ Primera clase GRATIS
+📍 Puerto Vallarta, Jalisco
+📲 Escríbeme: 322-305-8485
+
+¡Te esperamos en la pista! 🔥`,
+
+  cupos: `🔥 ¡ÚLTIMOS CUPOS DISPONIBLES!
+
+⚠️ Bachata Intermedio: solo 4 lugares
+⚠️ Salsa Avanzado: solo 2 lugares
+
+¡No te quedes sin tu lugar!
+💳 Aparta el tuyo HOY
+📞 322-305-8485
+📲 ritmolatinopvr.com
+
+#ÚltimosCupos #SalsaPVR #RitmoLatino`
+};
+
+function loadTemplate(){
+  const sel = document.getElementById('templateSelect').value;
+  const text = templateTextsModal[sel] || templateTextsModal.clase;
+  document.getElementById('postText').value = text;
+  updatePreview();
+}
+
+function updatePreview(){
+  const text = document.getElementById('postText').value;
+  const preview = document.getElementById('previewContent');
+  if(preview) preview.textContent = text.substring(0, 200) + (text.length > 200 ? '...' : '');
+}
+
+function copyPostText(){
+  const text = document.getElementById('postText').value;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('📋 ¡Texto copiado! Ahora ve a la red y pégalo.');
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 ¡Texto copiado!');
+  });
+}
+
+function publishTo(network){
+  const text = document.getElementById('postText').value || templateTextsModal.clase;
+  const encoded = encodeURIComponent(text);
+  
+  // Copy to clipboard first
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  });
+
+  const urls = {
+    facebook:  'https://www.facebook.com/sharer/sharer.php?u=https://d4tabl3-creator.github.io/Proyecto-salsa-/&quote=' + encoded,
+    instagram: 'https://www.instagram.com/',
+    whatsapp:  'https://wa.me/?text=' + encoded,
+    tiktok:    'https://www.tiktok.com/',
+    twitter:   'https://twitter.com/intent/tweet?text=' + encoded,
+    youtube:   'https://studio.youtube.com/'
+  };
+  
+  const msgs = {
+    facebook:  '📘 Texto copiado. Abriendo Facebook...',
+    instagram: '📸 Texto copiado. Abriendo Instagram — pégalo en tu nueva publicación.',
+    whatsapp:  '💬 Abriendo WhatsApp con el mensaje listo.',
+    tiktok:    '🎵 Texto copiado. Abriendo TikTok — pégalo en tu video.',
+    twitter:   '🐦 Abriendo Twitter con el texto listo.',
+    youtube:   '▶️ Texto copiado. Abriendo YouTube Studio.'
+  };
+
+  showToast(msgs[network] || '🚀 Abriendo red social...');
+  setTimeout(() => window.open(urls[network], '_blank'), 600);
+}
+
+function copyBankData(){
+  const data = 'Banco: [Tu banco]\nTitular: Roberto Villavicencio\nConcepto: Clases Ritmo Latino PVR + tu nombre';
+  navigator.clipboard.writeText(data).then(() => showToast('📋 Datos bancarios copiados'));
+}
+
+function sendPayReminder(){
+  const name = document.getElementById('payReminderName').value.trim();
+  const cls  = document.getElementById('payReminderClass').value.trim();
+  if(!name){ showToast('⚠️ Escribe el nombre del alumno'); return; }
+  const msg = encodeURIComponent(
+    `Hola ${name}! 👋 Te escribo de parte del Profe Roberto de Ritmo Latino PVR.\n\nTe recuerdo que tienes un pago pendiente de tu clase: ${cls || 'clase de baile'}.\n\nPor favor realiza tu pago para conservar tu lugar. 🙏\n\n¡Gracias y nos vemos en la pista! 💃`
+  );
+  window.open(`https://wa.me/?text=${msg}`, '_blank');
+}
+
+function exportReport(){
+  const rows = [
+    ['Alumno','Clase','Pago','Estado','Fecha'],
+    ['Ana González','Salsa Básico','$800','Pagado','Mar 2026'],
+    ['Pedro Torres','Bachata Intermedio','$950','Pendiente','Mar 2026'],
+    ['María Sánchez','Salsa Avanzado','$1200','Pagado','Mar 2026'],
+    ['Sofía López','Pack Completo','$1999','Pagado','Mar 2026'],
+  ];
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'reporte_pagos_ritmo_latino.csv';
+  a.click();
+  showToast('📊 Reporte descargado en tu dispositivo');
+}
+
+function publishNow(){ publishTo('facebook'); }
+function updatePreview(){
+  const text = document.getElementById('postText') ? document.getElementById('postText').value : '';
+  const preview = document.getElementById('previewContent');
+  if(preview && text) preview.textContent = text.substring(0,200);
+}
+
+// ── GO TO PUBLISH (from nav) ──
+function goToPublish(){
+  showSection('admin');
+  // activate redes menu item
+  document.querySelectorAll('.admin-menu-item').forEach(i => i.classList.remove('active'));
+  document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('adm-redes');
+  if(page) page.classList.add('active');
+  const menuItem = document.querySelector('.admin-menu-item[onclick*="redes"]');
+  if(menuItem) menuItem.classList.add('active');
+}
+
+// ── OPEN PUBLISH WITH TEMPLATE PRE-LOADED ──
+const templateTexts = {
+  clase: `🔥 ¡Nueva clase de Salsa en Línea disponible!\n\n💃 Horario: Lunes y Miércoles 7:00 PM\n📍 Salón Cultural Vallarta, Centro PVR\n💰 Solo $800 MXN/mes · ¡Cupos limitados!\n✅ Primera clase GRATIS para nuevos alumnos\n\n📲 Inscríbete en ritmolatinopvr.com o escríbenos.\n\n#SalsaEnLinea #BaileLatinoVallarta #RitmoLatinoPVR`,
+  concurso: `🏆 ¡GRAN CONCURSO DE SALSA PVR 2025!\n\n📅 Sábado 29 de Marzo · 7:00 PM\n📍 Malecón de Puerto Vallarta\n🎁 Premios increíbles · Entrada LIBRE\n💃 Categorías: Básico · Intermedio · Avanzado\n\n¡Inscríbete ya!\n\n#ConcursoSalsaPVR #RitmoLatinoPVR #PuertoVallarta`,
+  promo: `🎁 ¡OFERTA ESPECIAL DE TEMPORADA!\n\n🔥 20% de DESCUENTO en todas las clases\n⏰ Válido solo hasta el 31 de Marzo\n💰 Ahorra hasta $500 MXN con el Pack Completo\n\n✅ Inscríbete hoy: ritmolatinopvr.com\n📲 WhatsApp: 322-305-8485\n\n#Descuento #SalsaPVR #BaileLatinoVallarta`,
+  logro: `⭐ ¡Felicitamos a nuestra alumna del mes!\n\nSofía lleva solo 3 meses con nosotros y ya está bailando como profesional 💪\n\n¡Esto es lo que pasa cuando tienes pasión y un buen profe! 😄\n\n¿Tú también quieres lograrlo?\n📲 Inscríbete: ritmolatinopvr.com\n\n#Orgullosos #SalsaPVR #RitmoLatinoPVR`,
+  horario: `📅 HORARIO DE ESTA SEMANA\n\n🔴 Lunes & Miércoles 7PM → Salsa en Línea (Básico)\n💛 Martes & Jueves 8PM → Bachata (Intermedio)\n🟢 Miércoles 6PM → Merengue Mix\n🟠 Jueves 6PM → Cumbia\n⚡ Viernes 7PM → Salsa (Avanzado)\n🟣 Sábados 10AM → Kids Dance\n\n¡Cupos limitados! Reserva ya.\n\n#RitmoLatinoPVR #SalsaPVR`,
+  reel: `🎬 ¡Nuevo video disponible! 🔥\n\nMirá lo que están logrando nuestros alumnos en solo semanas de práctica 💃🕺\n\n¿Te imaginas bailar así?\n✅ Clases para todos los niveles\n📍 Puerto Vallarta, Jalisco\n📲 Info: ritmolatinopvr.com\n\n#Reel #SalsaPVR #BaileLatinoVallarta #TikTokDance`,
+  invitacion: `💃 ¡TE INVITO A BAILAR! 🕺\n\nHola! Soy el Profe Roberto Villavicencio y quiero invitarte a conocer nuestras clases de baile latino en Puerto Vallarta.\n\n🎵 Salsa · Bachata · Merengue · Cumbia\n✅ Primera clase GRATIS\n📍 Puerto Vallarta, Jalisco\n📲 Escríbeme por WhatsApp\n\n¡Te esperamos en la pista! 🔥`,
+  cupos: `🔥 ¡ÚLTIMOS CUPOS DISPONIBLES!\n\n⚠️ Bachata Intermedio: solo 4 lugares\n⚠️ Salsa Avanzado: solo 2 lugares\n\n¡No te quedes sin tu lugar!\n💳 Aparta el tuyo HOY\n📲 ritmolatinopvr.com\n📞 322-305-8485\n\n#ÚltimosCupos #SalsaPVR #RitmoLatino`
+};
+
+function openPublishWithTemplate(templateKey){
+  // Set the select dropdown
+  const mapSel = {clase:'clase',concurso:'concurso',promo:'promo',logro:'logro',horario:'horario',reel:'reel',invitacion:'invitacion',cupos:'cupos'};
+  const sel = document.getElementById('templateSelect');
+  if(sel && mapSel[templateKey]) sel.value = mapSel[templateKey];
+  // Load the template text
+  const text = templateTextsModal[templateKey] || templateTextsModal.clase;
+  const textarea = document.getElementById('postText');
+  if(textarea) textarea.value = text;
+  const preview = document.getElementById('previewContent');
+  if(preview) preview.textContent = text.substring(0,200);
+  openModal('publishModal');
+}
+let toastTimer;
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ── CALENDAR ──
+function buildCalendar(){
+  const grid = document.getElementById('calGrid');
+  const classes = {
+    1:[{type:'ev-salsa',text:'Salsa 7PM'}],
+    3:[{type:'ev-merengue',text:'Merengue 6PM'},{type:'ev-salsa',text:'Salsa 7PM'}],
+    4:[{type:'ev-bachata',text:'Bachata 8PM'}],
+    6:[{type:'ev-bachata',text:'Bachata 8PM'}],
+    7:[{type:'ev-salsa',text:'Avanzado 7PM'}],
+    8:[{type:'ev-kids',text:'Kids 10AM'}],
+    10:[{type:'ev-salsa',text:'Salsa 7PM'}],
+    12:[{type:'ev-merengue',text:'Merengue 6PM'},{type:'ev-salsa',text:'Salsa 7PM'}],
+    13:[{type:'ev-bachata',text:'Bachata 8PM'}],
+    14:[{type:'ev-salsa',text:'Avanzado 7PM'}],
+    15:[{type:'ev-kids',text:'Kids 10AM'}],
+    17:[{type:'ev-salsa',text:'Salsa 7PM'}],
+    19:[{type:'ev-merengue',text:'Merengue 6PM'},{type:'ev-salsa',text:'Salsa 7PM'}],
+    20:[{type:'ev-bachata',text:'Bachata 8PM'}],
+    21:[{type:'ev-salsa',text:'Avanzado 7PM'}],
+    22:[{type:'ev-kids',text:'Kids 10AM'}],
+    24:[{type:'ev-salsa',text:'Salsa 7PM'}],
+    26:[{type:'ev-merengue',text:'Merengue 6PM'},{type:'ev-salsa',text:'Salsa 7PM'}],
+    27:[{type:'ev-bachata',text:'Bachata 8PM'}],
+    28:[{type:'ev-salsa',text:'Avanzado 7PM'}],
+    29:[{type:'ev-kids',text:'Kids 10AM'}],
+  };
+  // March 2025 starts on Saturday (6) — pad 5 days
+  for(let p=0;p<5;p++){
+    const empty = document.createElement('div');
+    empty.className='cal-day';
+    empty.style.opacity='0.2';
+    grid.appendChild(empty);
+  }
+  for(let d=1;d<=31;d++){
+    const day = document.createElement('div');
+    day.className = 'cal-day' + (d===24?' today':'');
+    const num = document.createElement('div');
+    num.className='cal-num';
+    num.textContent = d;
+    day.appendChild(num);
+    if(classes[d]){
+      classes[d].forEach(ev => {
+        const e = document.createElement('div');
+        e.className = 'cal-event '+ev.type;
+        e.textContent = ev.text;
+        e.onclick = () => showSection('clases');
+        day.appendChild(e);
+      });
+    }
+    grid.appendChild(day);
+  }
+}
+buildCalendar();
+</script>
+
+<!-- ─── FLOATING ADMIN BUTTON ─── -->
+<button class="fab-admin" onclick="showSection('admin')" title="Panel de Administración">
+  ⚙️ <span>Panel Admin</span>
+</button>
+</body>
+</html>
